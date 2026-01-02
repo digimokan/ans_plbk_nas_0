@@ -46,7 +46,7 @@ to run FreeBSD and operate as a Network Attached Storage (NAS) server.
 ## Hardware Connections
 
 ```
-                 BACK OF PC
+                                  BACK OF PC
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │  ┌────────┐                        ╭───╮                                     │
 │  │  AC    │                        │PWR│                                     │
