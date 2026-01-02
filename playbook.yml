@@ -1,0 +1,72 @@
+- hosts: fileservers
+  vars_files:
+    - host_vars/vault_clear.yml
+    - host_vars/vault_enc.yml
+  vars:
+    zfs_os_pool: "zroot"
+    zfs_storage_pool: "zstore"
+    storage_movies_dir: "/storage/Movies"
+    storage_shows_dir: "/storage/Shows"
+    storage_home_videos_dir: "/storage/HomeVideos"
+    storage_music_dir: "/storage/Music"
+    storage_pictures_dir: "/storage/Pictures"
+    storage_software_dir: "/storage/Software"
+    storage_docs_dir: "/storage/Docs"
+    storage_vmstore_dir: "/storage/VmStore"
+    # Note: temporarily set these password vars on first playbook run
+    password_for_storage_pool_docs_dataset: ""
+  tasks:
+    - name: "Define a list of LAN hosts (names, addresses, etc)"
+      ansible.builtin.include_role:
+        name: ans_vars_lan_hosts
+        public: true
+    - name: "Configure system clock, time, and time zone"
+      ansible.builtin.include_role:
+        name: ext/ans_role_config_time
+    - name: "Configure OS security hardening options"
+      ansible.builtin.include_role:
+        name: ans_role_config_security_hardening
+    - name: "Configure system and package upgrades"
+      ansible.builtin.include_role:
+        name: ext/ans_role_config_upgrades
+    - name: "Configure the FreeBSD 'loader' bootloader"
+      ansible.builtin.include_role:
+        name: ext/ans_role_config_loader
+    - name: "Install and configure the lsblk block-device info utility"
+      ansible.builtin.include_role:
+        name: ans_role_config_lsblk
+        public: true
+    - name: "Install and configure ZFS hardware: disks, pools, vdevs, and devices"
+      ansible.builtin.include_role:
+        name: ans_role_config_zfs_hw
+    - name: "Create and configure zfs filesystem datasets"
+      ansible.builtin.include_role:
+        name: ans_role_config_zfs_datasets
+      vars:
+        zfs_datasets_to_create:
+          - { pool: "{{ spl }}", path: "{{ mdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: "" }
+          - { pool: "{{ spl }}", path: "{{ sdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
+          - { pool: "{{ spl }}", path: "{{ vdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
+          - { pool: "{{ spl }}", path: "{{ udir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
+          - { pool: "{{ spl }}", path: "{{ idir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
+          - { pool: "{{ spl }}", path: "{{ tdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
+          - { pool: "{{ spl }}", path: "{{ odir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '{{ opswd }}' }
+          - { pool: "{{ spl }}", path: "{{ rdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
+        spl: "{{ zfs_storage_pool }}"
+        mdir: "{{ storage_movies_dir }}"
+        sdir: "{{ storage_shows_dir }}"
+        vdir: "{{ storage_home_videos_dir }}"
+        udir: "{{ storage_music_dir }}"
+        idir: "{{ storage_pictures_dir }}"
+        tdir: "{{ storage_software_dir }}"
+        odir: "{{ storage_docs_dir }}"
+        rdir: "{{ storage_vmstore_dir }}"
+        opswd: "{{ password_for_storage_pool_docs_dataset }}"
+        susg: "root"
+    - name: "Configure cron jobs for all users"
+      ansible.builtin.include_role:
+        name: ans_role_config_cron
+      vars:
+        cfg_cron_jobs:
+          - "{{ restic_automatic_daily_backup_cron_job }}"
+
