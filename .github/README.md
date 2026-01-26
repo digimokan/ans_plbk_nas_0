@@ -135,10 +135,11 @@ to run FreeBSD and operate as a Network Attached Storage (NAS) server.
 
 4. Follow guided installation. Select/enable __only__ these options:
 
-    * Host Name: _nas0.machine_.
+    * Host Name: `nas-0.machine`.
         * Note: the control host will run the ansible playbook against this host
-    * ZFS guided installation: _mirror_ (select the two Boot Drive disks).
-    * Network interface _em0_: enable _IPv4_, and enable _dhcp_.
+        * Note: FreeBSD requires `.machine` FQDN, but Tailscale removes suffix
+    * ZFS guided installation: `mirror` (select the two Boot Drive disks).
+    * Network interface `em0`: enable `IPv4`, and enable `dhcp`.
 
 5. Remove the USB stick, and reboot the PC to the new installation.
 
@@ -148,6 +149,20 @@ to run FreeBSD and operate as a Network Attached Storage (NAS) server.
 
    ```shell
    $ pkg install tailscale
+   ```
+
+2. Start and enable `tailscaled`:
+
+   ```shell
+   $ service tailscaled start
+   $ service tailscaled enable
+   ```
+
+3. Connect to the Tailnet as a tagged server, providing an SSH server, and
+   authenticating via the provided URL:
+
+   ```shell
+   $ tailscale up --advertise-tags "tag:server" --ssh=true
    ```
 
 ### Control Host
