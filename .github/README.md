@@ -38,11 +38,11 @@ to run FreeBSD and operate as a Network Attached Storage (NAS) server.
     * 64 GB RAM
 * [2x SanDisk SSD Plus 480GB 2.5 Inch Sata III SSD](https://www.amazon.com/dp/B01F9G46Q8)
     * OS Boot Drives
-* [SABRENT 2.5 Inch SATA to USB 3.0 Drive Enclosure](https://www.amazon.com/dp/B00OJ3UJ2S)
+* [2x SABRENT 2.5 Inch SATA to USB 3.0 Drive Enclosure](https://www.amazon.com/dp/B00OJ3UJ2S)
     * Enclosures for Boot Drives, connected via USB
 * [2x Western Digital WD Red Pro 22TB 3.5 Inch Internal Hard Drive](https://www.amazon.com/dp/B0B5W1CQ8W)
     * Initial storage drives
-* [Cable Matters 3 Ft M-F USB Extension Cable](https://www.amazon.com/dp/B00C7S1B4W)
+* [1x Cable Matters 3 Ft M-F USB Extension Cable](https://www.amazon.com/dp/B00C7S1B4W)
     * Bringing out USB port to front of PC
 
 ## Hardware Connections
@@ -205,10 +205,10 @@ URL to access via a browser should look like this:
 
 #### Initial Setup
 
-1. Install _tailscale_ package at the root prompt:
+1. Install required packages at the root prompt:
 
    ```shell
-   $ pkg install tailscale
+   $ pkg install python tailscale
    ```
 
 2. Start and enable `tailscaled`:

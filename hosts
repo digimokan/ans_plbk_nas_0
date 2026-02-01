@@ -1,6 +1,6 @@
-[local]
-localhost ansible_python_interpreter=/usr/local/bin/python
-
 [fileservers]
 nas-0
+
+[fileservers:vars]
+ansible_python_interpreter=/usr/local/bin/python
 
