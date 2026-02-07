@@ -2,6 +2,7 @@ roles:
   - src: https://github.com/digimokan/ans_role_config_cron
   - src: https://github.com/digimokan/ans_role_config_loader
   - src: https://github.com/digimokan/ans_role_config_lsblk
+  - src: https://github.com/digimokan/ans_role_config_reboot
   - src: https://github.com/digimokan/ans_role_config_security_hardening
   - src: https://github.com/digimokan/ans_role_config_time
   - src: https://github.com/digimokan/ans_role_config_upgrades

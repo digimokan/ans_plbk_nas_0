@@ -69,4 +69,13 @@
     #   vars:
     #     cfg_cron_jobs:
     #       - "{{ restic_automatic_daily_backup_cron_job }}"
+    - name: "Run all handlers"
+      ansible.builtin.meta: flush_handlers
+    - name: "Reboot the system, as required"
+      ansible.builtin.include_role:
+        name: ans_role_config_reboot
+        # vars:
+          # cfg_reboot_requests:
+          #   - "{{ some_role_requests_reboot }}"
+          #   - "{{ aznother_role_requests_reboot }}"
 
