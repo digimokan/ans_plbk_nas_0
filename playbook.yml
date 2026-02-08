@@ -75,7 +75,7 @@
     - name: "Reboot the system, as required"
       ansible.builtin.include_role:
         name: ans_role_config_reboot
-        vars:
-          cfg_reboot_requests:
-            - "{{ security_hardening_requests_reboot }}"
+      vars:
+        cfg_reboot_requests:
+          - "{{ security_hardening_requests_reboot }}"
 
