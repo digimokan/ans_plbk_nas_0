@@ -27,12 +27,13 @@
       ansible.builtin.include_role:
         name: ans_role_config_security_hardening
         public: true
-    # - name: "Configure system and package upgrades"
-    #   ansible.builtin.include_role:
-    #     name: ext/ans_role_config_upgrades
-    # - name: "Configure the FreeBSD 'loader' bootloader"
-    #   ansible.builtin.include_role:
-    #     name: ext/ans_role_config_loader
+    - name: "Configure system and package upgrades"
+      ansible.builtin.include_role:
+        name: ext/ans_role_config_upgrades
+    - name: "Configure the FreeBSD 'loader' bootloader"
+      ansible.builtin.include_role:
+        name: ext/ans_role_config_loader
+        public: true
     # - name: "Install and configure the lsblk block-device info utility"
     #   ansible.builtin.include_role:
     #     name: ans_role_config_lsblk
@@ -78,4 +79,5 @@
       vars:
         cfg_reboot_requests:
           - "{{ security_hardening_requests_reboot }}"
+          - "{{ loader_requests_reboot }}"
 
