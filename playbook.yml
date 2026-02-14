@@ -38,9 +38,9 @@
       ansible.builtin.include_role:
         name: ans_role_config_lsblk
         public: true
-    # - name: "Install and configure ZFS hardware: disks, pools, vdevs, and devices"
-    #   ansible.builtin.include_role:
-    #     name: ans_role_config_zfs_hw
+    - name: "Install and configure ZFS hardware: disks, pools, vdevs, and devices"
+      ansible.builtin.include_role:
+        name: ans_role_config_zfs_hw
     # - name: "Create and configure zfs filesystem datasets"
     #   ansible.builtin.include_role:
     #     name: ans_role_config_zfs_datasets
