@@ -34,10 +34,10 @@
       ansible.builtin.include_role:
         name: ext/ans_role_config_loader
         public: true
-    # - name: "Install and configure the lsblk block-device info utility"
-    #   ansible.builtin.include_role:
-    #     name: ans_role_config_lsblk
-    #     public: true
+    - name: "Install and configure the lsblk block-device info utility"
+      ansible.builtin.include_role:
+        name: ans_role_config_lsblk
+        public: true
     # - name: "Install and configure ZFS hardware: disks, pools, vdevs, and devices"
     #   ansible.builtin.include_role:
     #     name: ans_role_config_zfs_hw
