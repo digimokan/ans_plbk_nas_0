@@ -47,7 +47,7 @@
         name: ans_role_config_zfs_datasets
       vars:
         zfs_datasets_to_create:
-          - { pool: "{{ spl }}", path: "{{ mdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: "" }
+          - { pool: "{{ spl }}", path: "{{ mdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
           - { pool: "{{ spl }}", path: "{{ sdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
           - { pool: "{{ spl }}", path: "{{ vdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
           - { pool: "{{ spl }}", path: "{{ idir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
