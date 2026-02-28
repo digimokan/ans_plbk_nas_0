@@ -8,13 +8,8 @@
     storage_movies_dir: "/storage/Movies"
     storage_shows_dir: "/storage/Shows"
     storage_home_videos_dir: "/storage/HomeVideos"
-    storage_music_dir: "/storage/Music"
     storage_pictures_dir: "/storage/Pictures"
     storage_software_dir: "/storage/Software"
-    storage_docs_dir: "/storage/Docs"
-    storage_vmstore_dir: "/storage/VmStore"
-    # Note: temporarily set these password vars on first playbook run
-    password_for_storage_pool_docs_dataset: ""
   tasks:
     - name: "Define a list of LAN hosts (names, addresses, etc)"
       ansible.builtin.include_role:
@@ -47,30 +42,23 @@
         name: ans_role_config_zfs_hw
       vars:
         cfg_zfs_hw_smartctl_cmd: "{{ smartmontools_main_cmd }}"
-    # - name: "Create and configure zfs filesystem datasets"
-    #   ansible.builtin.include_role:
-    #     name: ans_role_config_zfs_datasets
-    #   vars:
-    #     zfs_datasets_to_create:
-    #       - { pool: "{{ spl }}", path: "{{ mdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: "" }
-    #       - { pool: "{{ spl }}", path: "{{ sdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
-    #       - { pool: "{{ spl }}", path: "{{ vdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
-    #       - { pool: "{{ spl }}", path: "{{ udir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
-    #       - { pool: "{{ spl }}", path: "{{ idir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
-    #       - { pool: "{{ spl }}", path: "{{ tdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
-    #       - { pool: "{{ spl }}", path: "{{ odir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '{{ opswd }}' }
-    #       - { pool: "{{ spl }}", path: "{{ rdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
-    #     spl: "{{ zfs_storage_pool }}"
-    #     mdir: "{{ storage_movies_dir }}"
-    #     sdir: "{{ storage_shows_dir }}"
-    #     vdir: "{{ storage_home_videos_dir }}"
-    #     udir: "{{ storage_music_dir }}"
-    #     idir: "{{ storage_pictures_dir }}"
-    #     tdir: "{{ storage_software_dir }}"
-    #     odir: "{{ storage_docs_dir }}"
-    #     rdir: "{{ storage_vmstore_dir }}"
-    #     opswd: "{{ password_for_storage_pool_docs_dataset }}"
-    #     susg: "root"
+    - name: "Create and configure zfs filesystem datasets"
+      ansible.builtin.include_role:
+        name: ans_role_config_zfs_datasets
+      vars:
+        zfs_datasets_to_create:
+          - { pool: "{{ spl }}", path: "{{ mdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: "" }
+          - { pool: "{{ spl }}", path: "{{ sdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
+          - { pool: "{{ spl }}", path: "{{ vdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
+          - { pool: "{{ spl }}", path: "{{ idir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
+          - { pool: "{{ spl }}", path: "{{ tdir }}", owner: "{{ susg }}", group: "{{ susg }}", mode: '755', enc: '' }
+        spl: "{{ zfs_storage_pool }}"
+        mdir: "{{ storage_movies_dir }}"
+        sdir: "{{ storage_shows_dir }}"
+        vdir: "{{ storage_home_videos_dir }}"
+        idir: "{{ storage_pictures_dir }}"
+        tdir: "{{ storage_software_dir }}"
+        susg: "root"
     # - name: "Configure cron jobs for all users"
     #   ansible.builtin.include_role:
     #     name: ans_role_config_cron
