@@ -9,5 +9,5 @@ roles:
   - src: https://github.com/digimokan/ans_role_config_upgrades
   - src: https://github.com/digimokan/ans_role_config_zfs_datasets
   - src: https://github.com/digimokan/ans_role_config_zfs_hw
-  - src: https://github.com/digimokan/ans_vars_lan_hosts
+  - src: https://github.com/digimokan/ans_vars_lan_nfs_shares
 
