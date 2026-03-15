@@ -10,6 +10,7 @@ Ansible playbook to configure a 45HomeLab HL8 to serve as a FreeBSD NAS.
 * [Purpose](#purpose)
 * [Hardware Parts List](#hardware-parts-list)
 * [Hardware Connections](#hardware-connections)
+* [Hardware BIOS Configuration](#hardware-bios-configuration)
 * [Quick Start](#quick-start)
     * [Target NAS Host](#target-nas-host)
         * [Install Base System](#install-base-system)
@@ -113,6 +114,11 @@ to run FreeBSD and operate as a Network Attached Storage (NAS) server.
 * Graphics Card
     * `DP-1 (DisplayPort)`: N/A
     * `HDMI-1`: PiKVM Vid Link
+
+## Hardware BIOS Configuration
+
+* `Settings` -> `Platform Power`
+    * `AC BACK`: "Always On"
 
 ## Quick Start
 
