@@ -5,6 +5,7 @@
   vars:
     zfs_os_pool: "zroot"
     zfs_storage_pool: "zstore"
+    zfs_storage_pool_mount_point: "/data"
   tasks:
     - name: "Configure system clock, time, and time zone"
       ansible.builtin.include_role:
@@ -46,7 +47,7 @@
           {%- for item in ans_vars_lan_nfs_shares_list if (item.hostname == inventory_hostname) -%}
           {%- set _ = results.append({
             'pool': zfs_storage_pool,
-            'path': '/data/' ~ item.share,
+            'path': zfs_storage_pool_mount_point ~ "/" ~ item.share,
             'owner': 'root',
             'group': 'root',
             'mode': '755',
