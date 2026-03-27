@@ -3,9 +3,9 @@
     - host_vars/vault_clear.yml
     - host_vars/vault_enc.yml
   vars:
-    zfs_os_pool: "zroot"
+    root_user_name: "root"
+    root_user_group: "wheel"
     zfs_storage_pool: "zstore"
-    zfs_storage_pool_mount_point: "/data"
   tasks:
     - name: "Configure system clock, time, and time zone"
       ansible.builtin.include_role:
@@ -42,16 +42,20 @@
       ansible.builtin.include_role:
         name: ans_role_config_zfs_datasets
       vars:
+        zfs_datasets_decrypt_at_boot: false
         zfs_datasets_to_create: >-
           {%- set results = [] -%}
           {%- for item in ans_vars_lan_nfs_shares_list if (item.hostname == inventory_hostname) -%}
           {%- set _ = results.append({
-            'pool': zfs_storage_pool,
-            'path': zfs_storage_pool_mount_point ~ "/" ~ item.share,
-            'owner': 'root',
-            'group': 'root',
+            'parent': zfs_storage_pool,
+            'stem': item.share,
+            'mnt': item.pmount ~ '/' ~ item.share,
+            'mnt_inh': true,
+            'owner': root_user_name,
+            'group': root_user_group,
             'mode': '755',
-            'enc': ''
+            'enc': '',
+            'nfs': true
           }) -%}
           {%- endfor -%}
           {{ results }}
