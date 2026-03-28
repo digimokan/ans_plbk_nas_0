@@ -32,6 +32,7 @@
     - name: "Install and configure ZFS hardware: disks, pools, vdevs, and devices"
       ansible.builtin.include_role:
         name: ans_role_config_zfs_hw
+        public: true
       vars:
         cfg_zfs_hw_smartctl_cmd: "{{ smartmontools_main_cmd }}"
     - name: "Define a list of LAN NFS Shares, provided by various LAN hosts"
@@ -59,18 +60,18 @@
           }) -%}
           {%- endfor -%}
           {{ results }}
-    # - name: "Configure cron jobs for all users"
-    #   ansible.builtin.include_role:
-    #     name: ans_role_config_cron
-    #   vars:
-    #     cfg_cron_jobs:
-    #       - "{{ restic_automatic_daily_backup_cron_job }}"
     - name: "Install and configure the Network File System (NFS) server"
       ansible.builtin.include_role:
         name: ans_role_config_nfs_server
       vars:
         nfs_server_enable_nfsv3: false
         nfs_server_enable_nfsv4: true
+    - name: "Configure cron jobs for all users"
+      ansible.builtin.include_role:
+        name: ans_role_config_cron
+      vars:
+        cfg_cron_jobs:
+          - "{{ zfs_hw_scrub_all_pools_cron_job }}"
     - name: "Run all handlers"
       ansible.builtin.meta: flush_handlers
     - name: "Reboot the system, as required"
