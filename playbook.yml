@@ -65,6 +65,12 @@
     #   vars:
     #     cfg_cron_jobs:
     #       - "{{ restic_automatic_daily_backup_cron_job }}"
+    - name: "Install and configure the Network File System (NFS) server"
+      ansible.builtin.include_role:
+        name: ans_role_config_nfs_server
+      vars:
+        nfs_server_enable_nfsv3: false
+        nfs_server_enable_nfsv4: true
     - name: "Run all handlers"
       ansible.builtin.meta: flush_handlers
     - name: "Reboot the system, as required"
