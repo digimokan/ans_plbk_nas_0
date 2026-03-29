@@ -54,7 +54,7 @@
             'mnt_inh': true,
             'owner': root_user_name,
             'group': root_user_group,
-            'mode': '755',
+            'mode': '777',
             'enc': '',
             'nfs': true
           }) -%}
